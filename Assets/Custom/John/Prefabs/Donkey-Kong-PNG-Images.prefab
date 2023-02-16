@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4790270283678946383}
   - component: {fileID: 4110695270175670505}
   - component: {fileID: -7309693362477558073}
+  - component: {fileID: 2854532628929716210}
+  - component: {fileID: -3382966274580434090}
   m_Layer: 0
   m_Name: Donkey-Kong-PNG-Images
   m_TagString: Untagged
@@ -112,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b6089e27b1bf04d872f2468cdcd91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 30
 --- !u!114 &-7309693362477558073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +130,36 @@ MonoBehaviour:
   damage: 1
   enemyBullet: 0
   destroyedByCollision: 1
+--- !u!114 &2854532628929716210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203111643451486993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490cf3fbde1503f478f1049a9e690841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  degrees: 0
+--- !u!95 &-3382966274580434090
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203111643451486993}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d2cde782b623fcb4ca011952e66e3016, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
