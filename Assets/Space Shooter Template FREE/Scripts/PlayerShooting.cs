@@ -17,7 +17,7 @@ public class PlayerShooting : MonoBehaviour {
     public float fireRate;
 
     [Tooltip("projectile prefab")]
-    public GameObject projectileObject;
+    public List<GameObject> projectileObjects;
 
     //time for a new shot
     [HideInInspector] public float nextFire;
@@ -31,6 +31,8 @@ public class PlayerShooting : MonoBehaviour {
     bool shootingIsActive = true; 
     [HideInInspector] public int maxweaponPower = 4; 
     public static PlayerShooting instance;
+
+    private int index = 0;
 
     private void Awake()
     {
@@ -60,6 +62,12 @@ public class PlayerShooting : MonoBehaviour {
     //method for a shot
     void MakeAShot() 
     {
+        index++;
+        if(index > projectileObjects.Count - 1)
+        {
+            index = 0;
+        }
+        var projectileObject = projectileObjects[index];
         switch (weaponPower) // according to weapon power 'pooling' the defined anount of projectiles, on the defined position, in the defined rotation
         {
             case 1:
