@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This script defines the borders of ‘Player’s’ movement. Depending on the chosen handling type, it moves the ‘Player’ together with the pointer.
 /// </summary>
+
 
 
 [System.Serializable]
@@ -21,6 +22,15 @@ public class PlayerMoving : MonoBehaviour {
     public Borders borders;
     Camera mainCamera;
     bool controlIsActive = true; 
+    
+    [SerializeField]
+    private float speed;
+    float horizontalMovement;
+    float verticalMovement;
+
+    private Rigidbody2D rb;
+
+    private Vector2 movement;
 
     public static PlayerMoving instance; //unique instance of the script for easy access to the script
     public float playerMovementSpeed = 20f;
@@ -35,6 +45,8 @@ public class PlayerMoving : MonoBehaviour {
     {
         mainCamera = Camera.main;
         ResizeBorders();                //setting 'Player's' moving borders deending on Viewport's size
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -80,6 +92,14 @@ public class PlayerMoving : MonoBehaviour {
                 );
         }
 
+        horizontalMovement = Input.GetAxis("Horizontal");
+        verticalMovement = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate() 
+    {
+        movement = new Vector2(horizontalMovement, verticalMovement);
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 
     //setting 'Player's' movement borders according to Viewport size and defined offset
