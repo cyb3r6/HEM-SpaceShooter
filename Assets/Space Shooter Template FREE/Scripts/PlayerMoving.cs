@@ -74,6 +74,15 @@ public class PlayerMoving : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, touchPosition, 30 * Time.deltaTime);
             }
 #endif
+
+            // Window Controler
+            if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+            {
+                float keyPositionX = Input.GetAxis("Horizontal");
+                float keyPositionY = Input.GetAxis("Vertical");
+                transform.position += new Vector3(keyPositionX, keyPositionY, transform.position.z);
+            }
+
             transform.position = new Vector3    //if 'Player' crossed the movement borders, returning him back 
                 (
                 Mathf.Clamp(transform.position.x, borders.minX, borders.maxX),
