@@ -1,11 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This script defines the borders of ‘Player’s’ movement. Depending on the chosen handling type, it moves the ‘Player’ together with the pointer.
 /// </summary>
-
 
 
 [System.Serializable]
@@ -33,6 +32,7 @@ public class PlayerMoving : MonoBehaviour {
     private Vector2 movement;
 
     public static PlayerMoving instance; //unique instance of the script for easy access to the script
+    public float playerMovementSpeed = 20f;
 
     private void Awake()
     {
@@ -53,13 +53,15 @@ public class PlayerMoving : MonoBehaviour {
         if (controlIsActive)
         {
 #if UNITY_STANDALONE || UNITY_EDITOR    //if the current platform is not mobile, setting mouse handling 
+            var movementDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+            transform.position += movementDirection.normalized * 15f * Time.deltaTime;
 
-            if (Input.GetMouseButton(0)) //if mouse button was pressed       
-            {
-                Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition); //calculating mouse position in the worldspace
-                mousePosition.z = transform.position.z;
-                transform.position = Vector3.MoveTowards(transform.position, mousePosition, 30 * Time.deltaTime);
-            }
+            //if (Input.GetMouseButton(0)) //if mouse button was pressed       
+            //{
+            //    Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition); //calculating mouse position in the worldspace
+            //    mousePosition.z = transform.position.z;
+            //    transform.position = Vector3.MoveTowards(transform.position, mousePosition, 30 * Time.deltaTime);
+            //}
 #endif
 
 #if UNITY_IOS || UNITY_ANDROID //if current platform is mobile, 
