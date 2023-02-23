@@ -162,6 +162,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114642073701102404, guid: 8e33fda0c220936498f5288af83d7450,
+        type: 3}
+      propertyPath: projectileObjects.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642073701102404, guid: 8e33fda0c220936498f5288af83d7450,
+        type: 3}
+      propertyPath: projectileObjects.Array.data[6]
+      value: 
+      objectReference: {fileID: 2961932772255102550, guid: 07aecb6d44869414994c58b9c92f9122,
+        type: 3}
+    - target: {fileID: 199518571506553476, guid: 8e33fda0c220936498f5288af83d7450,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e33fda0c220936498f5288af83d7450, type: 3}
 --- !u!1001 &974050356

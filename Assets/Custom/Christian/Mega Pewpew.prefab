@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2920924802117155384}
   - component: {fileID: 3002721133281958068}
   m_Layer: 0
-  m_Name: Player_Short_Lazer
+  m_Name: Mega Pewpew
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
