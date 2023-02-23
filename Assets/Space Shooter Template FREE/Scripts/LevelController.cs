@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 #region Serializable classes
@@ -27,6 +28,8 @@ public class LevelController : MonoBehaviour {
     public float planetsSpeed;
     List<GameObject> planetsList = new List<GameObject>();
 
+    public TMP_Text EnemiesLeftText;
+
     Camera mainCamera;   
 
     private void Start()
@@ -36,9 +39,18 @@ public class LevelController : MonoBehaviour {
         for (int i = 0; i<enemyWaves.Length; i++) 
         {
             StartCoroutine(CreateEnemyWave(enemyWaves[i].timeToStart, enemyWaves[i].wave));
+            
         }
         StartCoroutine(PowerupBonusCreation());
         StartCoroutine(PlanetsCreation());
+    }
+    
+    private void Update() {
+        for(int i = 0; i<enemyWaves.Length; i++)
+        {
+        Wave currentWave = enemyWaves[i].wave.GetComponent<Wave>();
+        EnemiesLeftText.text = "Enemies Left: " + currentWave.count;
+        }
     }
     
     //Create a new wave after a delay
