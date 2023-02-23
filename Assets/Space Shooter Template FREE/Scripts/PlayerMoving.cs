@@ -1,10 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// This script defines the borders of ‘Player’s’ movement. Depending on the chosen handling type, it moves the ‘Player’ together with the pointer.
 /// </summary>
+
+
 
 [System.Serializable]
 public class Borders
@@ -20,8 +22,18 @@ public class PlayerMoving : MonoBehaviour {
     public Borders borders;
     Camera mainCamera;
     bool controlIsActive = true; 
+    
+    [SerializeField]
+    private float speed;
+    float horizontalMovement;
+    float verticalMovement;
+
+    private Rigidbody2D rb;
+
+    private Vector2 movement;
 
     public static PlayerMoving instance; //unique instance of the script for easy access to the script
+    public float playerMovementSpeed = 20f;
 
     private void Awake()
     {
@@ -33,6 +45,8 @@ public class PlayerMoving : MonoBehaviour {
     {
         mainCamera = Camera.main;
         ResizeBorders();                //setting 'Player's' moving borders deending on Viewport's size
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -40,13 +54,15 @@ public class PlayerMoving : MonoBehaviour {
         if (controlIsActive)
         {
 #if UNITY_STANDALONE || UNITY_EDITOR    //if the current platform is not mobile, setting mouse handling 
+    var movementDirection = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+    transform.position += movementDirection.normalized * playerMovementSpeed * Time.deltaTime;
 
-            if (Input.GetMouseButton(0)) //if mouse button was pressed       
-            {
-                Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition); //calculating mouse position in the worldspace
-                mousePosition.z = transform.position.z;
-                transform.position = Vector3.MoveTowards(transform.position, mousePosition, 30 * Time.deltaTime);
-            }
+            //if (Input.GetMouseButton(0)) //if mouse button was pressed       
+            //{
+            //    Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition); //calculating mouse position in the worldspace
+            //    mousePosition.z = transform.position.z;
+           //     transform.position = Vector3.MoveTowards(transform.position, mousePosition, 30 * Time.deltaTime);
+           // }
 #endif
 
 #if UNITY_IOS || UNITY_ANDROID //if current platform is mobile, 
@@ -59,6 +75,15 @@ public class PlayerMoving : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, touchPosition, 30 * Time.deltaTime);
             }
 #endif
+
+            // Window Controler
+            if ((Input.GetAxis("Horizontal") != 0) || (Input.GetAxis("Vertical") != 0))
+            {
+                float keyPositionX = Input.GetAxis("Horizontal");
+                float keyPositionY = Input.GetAxis("Vertical");
+                transform.position += new Vector3(keyPositionX, keyPositionY, transform.position.z);
+            }
+
             transform.position = new Vector3    //if 'Player' crossed the movement borders, returning him back 
                 (
                 Mathf.Clamp(transform.position.x, borders.minX, borders.maxX),
@@ -66,6 +91,15 @@ public class PlayerMoving : MonoBehaviour {
                 0
                 );
         }
+
+        horizontalMovement = Input.GetAxis("Horizontal");
+        verticalMovement = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate() 
+    {
+        movement = new Vector2(horizontalMovement, verticalMovement);
+        rb.MovePosition(rb.position + movement * speed * Time.deltaTime);
     }
 
     //setting 'Player's' movement borders according to Viewport size and defined offset
